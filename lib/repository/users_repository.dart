@@ -24,4 +24,20 @@ class UsersRepository {
 
     return usersList;
   }
+
+  postNewUser(UserModel userModel) async {
+    final json = jsonEncode(UserModel.toJson(userModel));
+    var response = await http.post(Uri.parse(urlBaseApi), body: json);
+    if (response.statusCode != 201) {
+      throw 'Problemas ao inserir Usuário';
+    }
+  }
+
+  deleteUser(String id) async {
+    final url = '$urlBaseApi/$id';
+    var response = await http.delete(Uri.parse(url));
+    if (response.statusCode != 200) {
+      throw 'Problemas ao excluir usuário';
+    }
+  }
 }

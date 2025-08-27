@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/models/user_model.dart';
+import 'package:flutterapp/repository/users_repository.dart';
 
 class FormUserPage extends StatefulWidget {
   const FormUserPage({super.key});
@@ -12,6 +14,30 @@ class _FormUserPageState extends State<FormUserPage> {
   TextEditingController txtEmailController = TextEditingController();
   TextEditingController txtPhotoController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  //instanciar o repositório
+  final repository = UsersRepository();
+  saveUser() async {
+    try {
+      //criar o UserModel a partir dos dados do formulário
+      UserModel userModel = UserModel(
+        name: txtNameController.text,
+        email: txtEmailController.text,
+        avatar: txtPhotoController.text, id: '', createdAt: '',
+      );
+      //salvar o usuário no banco
+      await repository.postNewUser(userModel);
+      //mostrar mensagem de sucesso
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Dados salvos!')));
+      //voltar para a tela anterior
+      Navigator.pop(context);
+    } catch (e) {
+      //mostrar mensagem de erro
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +90,9 @@ class _FormUserPageState extends State<FormUserPage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {}
+                  if (formKey.currentState!.validate()) {
+                    saveUser();
+                  }
                 },
                 child: const Text("Salvar"),
               ),

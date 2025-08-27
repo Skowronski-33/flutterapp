@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutterapp/components/menu.dart';
 import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/pages/form_user_page.dart';
 import 'package:flutterapp/repository/users_repository.dart';
@@ -23,6 +24,33 @@ class _HomePageState extends State<HomePage> {
     return await repository.getUsers();
   }
 
+  deleteUser(String id) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Confirmação'),
+        content: const Text('Confirma exclusão deste usuário?'),
+        actions: [
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, 'Cancelar'),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await repository.deleteUser(id);
+              Navigator.pop(context);
+            },
+            child: const Text('Confirmar'),
+          ),
+        ],
+      ),
+    );
+    //após finalizar a exclusão, atualizar a lista de usuários
+    setState(() {
+      userList = fetchUsers();
+    });
+  }
+
   @override
   void initState() {
     userList = fetchUsers();
@@ -32,9 +60,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Lista de usuários"),
-      ),
+      appBar: AppBar(title: const Text("Lista de usuários")),
+      drawer: Menu(),
       body: FutureBuilder(
         future: userList,
         builder: (context, AsyncSnapshot<List<UserModel>> snapshot) {
@@ -52,10 +79,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FormUserPage(),
-              ));
+            context,
+            MaterialPageRoute(builder: (context) => const FormUserPage()),
+          ).then((value) {
+            setState(() {
+              userList = fetchUsers();
+            });
+          });
         },
         child: const Icon(Icons.add),
       ),
@@ -69,22 +99,27 @@ class _HomePageState extends State<HomePage> {
         return Card(
           elevation: 5,
           child: Slidable(
-            endActionPane: ActionPane(motion: const ScrollMotion(), children: [
-              SlidableAction(
-                onPressed: (context) {},
-                icon: Icons.edit,
-                backgroundColor: Colors.grey,
-                foregroundColor: Colors.black,
-                label: "Editar",
-              ),
-              SlidableAction(
-                onPressed: (context) {},
-                icon: Icons.delete,
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                label: "Excluir",
-              )
-            ]),
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: (context) {},
+                  icon: Icons.edit,
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.black,
+                  label: "Editar",
+                ),
+                SlidableAction(
+                  onPressed: (context) {
+                    deleteUser(userList[index].id);
+                  },
+                  icon: Icons.delete,
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  label: "Excluir",
+                ),
+              ],
+            ),
             child: ListTile(
               leading: CircleAvatar(
                 child: userList[index].avatar != null
