@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutterapp/components/menu.dart';
 import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/pages/form_user_page.dart';
+import 'package:flutterapp/pages/user_view_page.dart';
 import 'package:flutterapp/repository/users_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -77,10 +78,10 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const FormUserPage()),
+            MaterialPageRoute(builder: (context) => FormUserPage()),
           ).then((value) {
             setState(() {
               userList = fetchUsers();
@@ -103,7 +104,18 @@ class _HomePageState extends State<HomePage> {
               motion: const ScrollMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) {},
+                  onPressed: (context) async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            FormUserPage(userEdit: userList[index]),
+                      ),
+                    );
+                    setState(() {
+                      userList = fetchUsers();
+                    });
+                  },
                   icon: Icons.edit,
                   backgroundColor: Colors.grey,
                   foregroundColor: Colors.black,
@@ -122,13 +134,24 @@ class _HomePageState extends State<HomePage> {
             ),
             child: ListTile(
               leading: CircleAvatar(
-                child: userList[index].avatar != null
-                    ? Image.network(userList[index].avatar)
-                    : const Text("US"),
+                child: Image.network(
+                  userList[index].avatar,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.person);
+                  },
+                ),
               ),
               title: Text(userList[index].name),
               subtitle: Text(userList[index].email ?? "Sem email"),
               trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserViewPage(user: userList[index]),
+                  ),
+                );
+              },
             ),
           ),
         );
