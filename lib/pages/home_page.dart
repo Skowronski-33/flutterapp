@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutterapp/components/menu.dart';
@@ -5,6 +6,7 @@ import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/pages/form_user_page.dart';
 import 'package:flutterapp/pages/user_view_page.dart';
 import 'package:flutterapp/repository/users_repository.dart';
+import 'package:flutterapp/services/user_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +18,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //instanciar a classe UsersRepository
   final repository = UsersRepository();
+  
+  //instanciar o UserService para as iniciais
+  final userService = UserService();
 
   //lista de usuários
   late Future<List<UserModel>> userList;
@@ -134,12 +139,34 @@ class _HomePageState extends State<HomePage> {
             ),
             child: ListTile(
               leading: CircleAvatar(
-                child: Image.network(
-                  userList[index].avatar,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.person);
-                  },
-                ),
+                backgroundColor: Colors.blue, // Cor de fundo para as iniciais
+                child: userList[index].avatar != null && userList[index].avatar!.isNotEmpty
+                    ? ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: userList[index].avatar!,
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                          errorWidget: (context, url, error) => Text(
+                            userService.initials(userList[index].name ?? ""),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Text(
+                        userService.initials(userList[index].name ?? ""),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
               ),
               title: Text(userList[index].name),
               subtitle: Text(userList[index].email ?? "Sem email"),
