@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/home_page.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

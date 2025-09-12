@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/models/user_model.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class UserViewPage extends StatelessWidget {
   const UserViewPage({super.key, required this.user});

@@ -7,6 +7,7 @@ import 'package:flutterapp/pages/form_user_page.dart';
 import 'package:flutterapp/pages/user_view_page.dart';
 import 'package:flutterapp/repository/users_repository.dart';
 import 'package:flutterapp/services/user_service.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

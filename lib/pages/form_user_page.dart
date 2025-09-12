@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/repository/users_repository.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class FormUserPage extends StatefulWidget {
   const FormUserPage({super.key, this.userEdit});
