@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/home_page.dart';
-import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutterapp/l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!; 
+    
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             maxLength: 50,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: "Informe o seu Email",
+              hintText: l10n.loginEmailHint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(37),
                 borderSide: BorderSide(color: Colors.deepPurple, width: 2),
@@ -52,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     ? Icon(Icons.visibility_off)
                     : Icon(Icons.visibility),
               ),
-              hintText: "Informe a sua Senha",
+              hintText: l10n.loginPasswordHint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(37),
                 borderSide: BorderSide(color: Colors.deepPurple, width: 2),
@@ -71,12 +73,15 @@ class _LoginPageState extends State<LoginPage> {
                   MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
-              child: Text("Entrar"),
+              child: Text(l10n.loginButton),
             ),
           ),
 
           //text forgot password
-          TextButton(onPressed: () {}, child: Text("Esqueci minha senha")),
+          TextButton(
+            onPressed: () {}, 
+            child: Text(l10n.forgotPassword) 
+          ),
         ],
       ),
     );

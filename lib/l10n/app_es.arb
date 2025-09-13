@@ -1,0 +1,54 @@
+{
+  "@@locale": "es",
+  
+  "loginEmailHint": "Introduce tu email",
+  "loginPasswordHint": "Introduce tu contraseña",
+  "loginButton": "Iniciar sesión",
+  "forgotPassword": "Olvidé mi contraseña",
+  
+  "userListTitle": "Lista de usuarios",
+  "noUsersFound": "No se encontraron usuarios",
+  "noEmail": "Sin email",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "error": "Error: {error}",
+  
+  "deleteConfirmTitle": "Confirmación",
+  "deleteConfirmMessage": "¿Confirmar eliminación de este usuario?",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  
+  "editUser": "Editar Usuario",
+  "newUser": "Nuevo Usuario",
+  "nameHint": "Introduce tu nombre",
+  "nameLabel": "Nombre",
+  "emailHint": "Introduce tu email",
+  "emailLabel": "Email",
+  "photoUrlHint": "https://ejemplo.com/foto.jpg",
+  "photoUrlLabel": "URL de la Foto",
+  "update": "Actualizar",
+  "save": "Guardar",
+  
+  "nameRequired": "Por favor introduce un nombre",
+  "nameMinLength": "El nombre debe tener al menos 2 caracteres",
+  "emailRequired": "Por favor introduce un email",
+  "emailInvalid": "Por favor introduce un email válido",
+  "photoUrlRequired": "Por favor introduce una URL de foto",
+  "photoUrlInvalid": "Por favor introduce una URL válida",
+  
+  "userUpdatedSuccess": "¡Datos actualizados correctamente!",
+  "userUpdateError": "Error al actualizar: {error}",
+  "userCreatedSuccess": "¡Usuario creado correctamente!",
+  "userCreateError": "Error al crear usuario: {error}",
+  
+  "userDetailsTitle": "Detalles del Usuario",
+  "detailedInfo": "Información Detallada",
+  "idLabel": "ID",
+  "fullNameLabel": "Nombre Completo",
+  "emailLabel": "Email",
+  "registrationDateLabel": "Fecha de Registro",
+  "back": "Atrás",
+  "language": "Idioma",
+  "menuTitle": "Menú Principal",
+  "changeLanguage": "Cambiar idioma de la app"
+}

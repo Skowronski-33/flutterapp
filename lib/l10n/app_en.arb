@@ -1,0 +1,201 @@
+{
+  "@@locale": "en",
+  
+  "loginEmailHint": "Enter your email",
+  "@loginEmailHint": {
+    "description": "Email input hint on login page"
+  },
+  "loginPasswordHint": "Enter your password",
+  "@loginPasswordHint": {
+    "description": "Password input hint on login page"
+  },
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "Login button text"
+  },
+  "forgotPassword": "Forgot my password",
+  "@forgotPassword": {
+    "description": "Forgot password link text"
+  },
+  
+  "userListTitle": "Users List",
+  "@userListTitle": {
+    "description": "Title of users list page"
+  },
+  "noUsersFound": "No users found",
+  "@noUsersFound": {
+    "description": "Message when no users are found"
+  },
+  "noEmail": "No email",
+  "@noEmail": {
+    "description": "Text when user has no email"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit action text"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete action text"
+  },
+  "error": "Error: {error}",
+  "@error": {
+    "description": "Error message with parameter",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "deleteConfirmTitle": "Confirmation",
+  "@deleteConfirmTitle": {
+    "description": "Delete confirmation dialog title"
+  },
+  "deleteConfirmMessage": "Confirm deletion of this user?",
+  "@deleteConfirmMessage": {
+    "description": "Delete confirmation dialog message"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button text"
+  },
+  
+  "editUser": "Edit User",
+  "@editUser": {
+    "description": "Edit user page title"
+  },
+  "newUser": "New User",
+  "@newUser": {
+    "description": "New user page title"
+  },
+  "nameHint": "Enter your name",
+  "@nameHint": {
+    "description": "Name input hint"
+  },
+  "nameLabel": "Name",
+  "@nameLabel": {
+    "description": "Name input label"
+  },
+  "emailHint": "Enter your email",
+  "@emailHint": {
+    "description": "Email input hint"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Email input label"
+  },
+  "photoUrlHint": "https://example.com/photo.jpg",
+  "@photoUrlHint": {
+    "description": "Photo URL input hint"
+  },
+  "photoUrlLabel": "Photo URL",
+  "@photoUrlLabel": {
+    "description": "Photo URL input label"
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Update button text"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button text"
+  },
+  
+  "nameRequired": "Please enter a name",
+  "@nameRequired": {
+    "description": "Name required validation message"
+  },
+  "nameMinLength": "Name must have at least 2 characters",
+  "@nameMinLength": {
+    "description": "Name minimum length validation message"
+  },
+  "emailRequired": "Please enter an email",
+  "@emailRequired": {
+    "description": "Email required validation message"
+  },
+  "emailInvalid": "Please enter a valid email",
+  "@emailInvalid": {
+    "description": "Email invalid validation message"
+  },
+  "photoUrlRequired": "Please enter a photo URL",
+  "@photoUrlRequired": {
+    "description": "Photo URL required validation message"
+  },
+  "photoUrlInvalid": "Please enter a valid URL",
+  "@photoUrlInvalid": {
+    "description": "Photo URL invalid validation message"
+  },
+  
+  "userUpdatedSuccess": "Data updated successfully!",
+  "@userUpdatedSuccess": {
+    "description": "User updated success message"
+  },
+  "userUpdateError": "Error updating: {error}",
+  "@userUpdateError": {
+    "description": "User update error message",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "userCreatedSuccess": "User created successfully!",
+  "@userCreatedSuccess": {
+    "description": "User created success message"
+  },
+  "userCreateError": "Error creating user: {error}",
+  "@userCreateError": {
+    "description": "User create error message",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "userDetailsTitle": "User Details",
+  "@userDetailsTitle": {
+    "description": "User details page title"
+  },
+  "detailedInfo": "Detailed Information",
+  "@detailedInfo": {
+    "description": "Detailed information card title"
+  },
+  "idLabel": "ID",
+  "@idLabel": {
+    "description": "ID field label"
+  },
+  "fullNameLabel": "Full Name",
+  "@fullNameLabel": {
+    "description": "Full name field label"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Email field label"
+  },
+  "registrationDateLabel": "Registration Date",
+  "@registrationDateLabel": {
+    "description": "Registration date field label"
+  },
+   "back": "Back",
+  "@back": {
+    "description": "Back button text"
+  },
+   "language": "Language",
+  "@language": {
+    "description": "Language selection text"
+  },
+  "menuTitle": "Main Menu",
+  "@menuTitle": {
+    "description": "Menu title"
+  },
+  "changeLanguage": "Change app language",
+  "@changeLanguage": {
+    "description": "Change language subtitle"
+  }
+}

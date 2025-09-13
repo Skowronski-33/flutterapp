@@ -7,7 +7,7 @@ import 'package:flutterapp/pages/form_user_page.dart';
 import 'package:flutterapp/pages/user_view_page.dart';
 import 'package:flutterapp/repository/users_repository.dart';
 import 'package:flutterapp/services/user_service.dart';
-import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutterapp/l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,22 +32,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   deleteUser(String id) async {
+    final l10n = AppLocalizations.of(context)!; 
+    
     await showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Confirmação'),
-        content: const Text('Confirma exclusão deste usuário?'),
+        title: Text(l10n.deleteConfirmTitle), 
+        content: Text(l10n.deleteConfirmMessage), 
         actions: [
           ElevatedButton(
             onPressed: () => Navigator.pop(context, 'Cancelar'),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () async {
               await repository.deleteUser(id);
               Navigator.pop(context);
             },
-            child: const Text('Confirmar'),
+            child: Text(l10n.confirm), 
           ),
         ],
       ),
@@ -66,8 +68,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
-      appBar: AppBar(title: const Text("Lista de usuários")),
+      appBar: AppBar(title: Text(l10n.userListTitle)),
       drawer: Menu(),
       body: FutureBuilder(
         future: userList,
@@ -75,9 +79,9 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Erro: ${snapshot.error}"));
+            return Center(child: Text(l10n.error(snapshot.error.toString()))); 
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("Nenhum usuário encontrado"));
+            return Center(child: Text(l10n.noUsersFound));
           } else {
             return _buildUserList(snapshot.data);
           }
@@ -100,6 +104,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildUserList(userList) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return ListView.builder(
       itemCount: userList.length,
       itemBuilder: (context, index) {
@@ -119,13 +125,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                     setState(() {
-                      userList = fetchUsers();
+                      this.userList = fetchUsers();
                     });
                   },
                   icon: Icons.edit,
                   backgroundColor: Colors.grey,
                   foregroundColor: Colors.black,
-                  label: "Editar",
+                  label: l10n.edit,
                 ),
                 SlidableAction(
                   onPressed: (context) {
@@ -134,13 +140,13 @@ class _HomePageState extends State<HomePage> {
                   icon: Icons.delete,
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
-                  label: "Excluir",
+                  label: l10n.delete,
                 ),
               ],
             ),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.blue, // Cor de fundo para as iniciais
+                backgroundColor: Colors.blue,
                 child: userList[index].avatar != null && userList[index].avatar!.isNotEmpty
                     ? ClipOval(
                         child: CachedNetworkImage(
@@ -170,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                       ),
               ),
               title: Text(userList[index].name),
-              subtitle: Text(userList[index].email ?? "Sem email"),
+              subtitle: Text(userList[index].email ?? l10n.noEmail),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.push(

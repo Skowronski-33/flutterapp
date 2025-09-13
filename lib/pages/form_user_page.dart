@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/repository/users_repository.dart';
-import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutterapp/l10n/app_localizations.dart';
 
 class FormUserPage extends StatefulWidget {
   const FormUserPage({super.key, this.userEdit});
@@ -24,6 +24,8 @@ class _FormUserPageState extends State<FormUserPage> {
   final repository = UsersRepository();
 
   updateUser() async {
+    final l10n = AppLocalizations.of(context)!;
+    
     try {
       await repository.updateUser(
         UserModel(
@@ -36,17 +38,19 @@ class _FormUserPageState extends State<FormUserPage> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Dados atualizados com sucesso!')),
+        SnackBar(content: Text(l10n.userUpdatedSuccess)), 
       );
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Erro ao atualizar: $e')));
+      ).showSnackBar(SnackBar(content: Text(l10n.userUpdateError(e.toString())))); 
     }
   }
 
   saveUser() async {
+    final l10n = AppLocalizations.of(context)!;
+    
     try {
       UserModel userModel = UserModel(
         name: txtNameController.text,
@@ -59,13 +63,13 @@ class _FormUserPageState extends State<FormUserPage> {
       await repository.postNewUser(userModel);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuário criado com sucesso!')),
+        SnackBar(content: Text(l10n.userCreatedSuccess)),
       );
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Erro ao criar usuário: $e')));
+      ).showSnackBar(SnackBar(content: Text(l10n.userCreateError(e.toString()))));
     }
   }
 
@@ -91,10 +95,12 @@ class _FormUserPageState extends State<FormUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.userEdit != null ? "Editar Usuário" : "Novo Usuário",
+          widget.userEdit != null ? l10n.editUser : l10n.newUser,
         ),
       ),
       body: Padding(
@@ -107,16 +113,16 @@ class _FormUserPageState extends State<FormUserPage> {
                 controller: txtNameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Preencha o nome";
+                    return l10n.nameRequired;
                   }
                   if (value.length < 2) {
-                    return "Nome deve ter pelo menos 2 caracteres";
+                    return l10n.nameMinLength;
                   }
                   return null;
                 },
-                decoration: const InputDecoration(
-                  hintText: "Digite seu nome",
-                  labelText: "Nome",
+                decoration: InputDecoration(
+                  hintText: l10n.nameHint, 
+                  labelText: l10n.nameLabel, 
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -127,18 +133,18 @@ class _FormUserPageState extends State<FormUserPage> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Preencha o e-mail";
+                    return l10n.emailRequired; 
                   }
                   if (!RegExp(
                     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
                   ).hasMatch(value)) {
-                    return "Digite um e-mail válido";
+                    return l10n.emailInvalid; 
                   }
                   return null;
                 },
-                decoration: const InputDecoration(
-                  hintText: "Digite seu E-mail",
-                  labelText: "E-mail",
+                decoration: InputDecoration(
+                  hintText: l10n.emailHint,
+                  labelText: l10n.emailLabel, 
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -148,19 +154,19 @@ class _FormUserPageState extends State<FormUserPage> {
                 controller: txtPhotoController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Preencha a URL da foto";
+                    return l10n.photoUrlRequired; 
                   }
 
                   final uri = Uri.tryParse(value);
                   if (uri == null || !uri.hasScheme) {
-                    return "Digite uma URL válida";
+                    return l10n.photoUrlInvalid; 
                   }
 
                   return null;
                 },
-                decoration: const InputDecoration(
-                  hintText: "https://exemplo.com/foto.jpg",
-                  labelText: "URL da Foto",
+                decoration: InputDecoration(
+                  hintText: l10n.photoUrlHint, 
+                  labelText: l10n.photoUrlLabel,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -184,7 +190,7 @@ class _FormUserPageState extends State<FormUserPage> {
                     foregroundColor: Colors.white,
                   ),
                   child: Text(
-                    widget.userEdit != null ? "Atualizar" : "Salvar",
+                    widget.userEdit != null ? l10n.update : l10n.save,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),

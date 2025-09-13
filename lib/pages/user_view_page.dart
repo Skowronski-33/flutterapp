@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/models/user_model.dart';
-import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutterapp/l10n/app_localizations.dart'; 
 
 class UserViewPage extends StatelessWidget {
   const UserViewPage({super.key, required this.user});
@@ -9,9 +9,11 @@ class UserViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detalhes do Usuário"),
+        title: Text(l10n.userDetailsTitle), 
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -104,7 +106,7 @@ class UserViewPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "Informações Detalhadas",
+                        l10n.detailedInfo,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
@@ -117,7 +119,7 @@ class UserViewPage extends StatelessWidget {
                       _buildCenteredInfoItem(
                         context,
                         Icons.badge,
-                        "ID",
+                        l10n.idLabel,
                         user.id ?? '',
                       ),
 
@@ -127,7 +129,7 @@ class UserViewPage extends StatelessWidget {
                       _buildCenteredInfoItem(
                         context,
                         Icons.person,
-                        "Nome Completo",
+                        l10n.fullNameLabel,
                         user.name ?? '',
                       ),
 
@@ -137,7 +139,7 @@ class UserViewPage extends StatelessWidget {
                       _buildCenteredInfoItem(
                         context,
                         Icons.email,
-                        "E-mail",
+                        l10n.emailLabel,
                         user.email ?? '',
                       ),
 
@@ -147,7 +149,7 @@ class UserViewPage extends StatelessWidget {
                       _buildCenteredInfoItem(
                         context,
                         Icons.calendar_today,
-                        "Data de Cadastro",
+                        l10n.registrationDateLabel,
                         _formatDate(user.createdAt),
                       ),
                     ],
@@ -165,7 +167,7 @@ class UserViewPage extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.arrow_back),
-                  label: const Text("Voltar"),
+                  label: Text(l10n.back),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
